@@ -24,6 +24,6 @@ class RecipeResource extends JsonResource
             "ingredients" => $this->ingredientList($name, $quanitity),
             "method" => $this->method,
             "updated_at" => $this->lastUpdated(),
-    ];
+        ];
     }
 }

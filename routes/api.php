@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\RecipeController;
+use App\Http\Controllers\API\IngredientController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,6 @@ Route::group(["prefix" => "recipes"], function() {
     Route::get("", [RecipeController::class, "index"]);
 });
 
-// Route::group(["prefix" => "ingredients"], function() {
-//     Route::get("", [IngredientController::class, "index"]);
-// });
+Route::group(["prefix" => "ingredients"], function() {
+    Route::get("", [IngredientController::class, "index"]);
+});
