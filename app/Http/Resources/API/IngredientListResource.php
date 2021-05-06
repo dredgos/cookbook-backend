@@ -4,7 +4,7 @@ namespace App\Http\Resources\API;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class IngredientResource extends JsonResource
+class IngredientListResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,6 +17,7 @@ class IngredientResource extends JsonResource
         return [
             "ingredient_id" => $this->id,
             "ingredient_name" => $this->ingredient_name,
+            "used_in" => $this->recipes->pluck("recipe_name"),
         ];
     }
 }

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Ingredient;
 use App\Http\Resources\API\IngredientResource;
+use App\Http\Resources\API\IngredientListResource;
+use App\Http\Requests\API\IngredientRequest;
 
 class IngredientController extends Controller
 {
@@ -16,7 +18,7 @@ class IngredientController extends Controller
      */
     public function index()
     {
-        return IngredientResource::collection(Ingredient::all());
+        return IngredientListResource::collection(Ingredient::all());
     }
 
     /**
@@ -25,9 +27,11 @@ class IngredientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(IngredientRequest $request)
     {
-        //
+        $data = $request->all();
+        $ingredient = Ingredient::create($data);
+        return new IngredientResource($ingredient);
     }
 
     /**

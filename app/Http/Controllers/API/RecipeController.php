@@ -5,7 +5,11 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Recipe;
+use App\Models\Ingredient;
 use App\Http\Resources\API\RecipeResource;
+use App\Http\Requests\API\RecipeRequest;
+use App\Http\Requests\API\IngredientRequest;
+use App\Http\Resources\API\IngredientResource;
 
 class RecipeController extends Controller
 {
@@ -25,9 +29,19 @@ class RecipeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RecipeRequest $request, IngredientRequest $ingredient)
     {
-        //
+        $data = $request->all();
+        $recipe = Recipe::create($data);
+
+        $ingredients = $request->get('ingredients');
+
+        return $ingredients;
+        foreach ($ingredients as $ingredient) {
+            return $ingredient;          
+        }
+
+        return new RecipeResource($recipe);
     }
 
     /**
@@ -36,9 +50,9 @@ class RecipeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Recipe $recipe)
     {
-        //
+        return new RecipeResource($recipe);
     }
 
     /**
