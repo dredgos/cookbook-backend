@@ -29,19 +29,42 @@ class RecipeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(RecipeRequest $request, IngredientRequest $ingredient)
+    public function store(RecipeRequest $request)
     {
         $data = $request->all();
         $recipe = Recipe::create($data);
 
         $ingredients = $request->get('ingredients');
+        $amounts = $request->get('amounts');
 
-        return $ingredients;
-        foreach ($ingredients as $ingredient) {
-            return $ingredient;          
-        }
+        $recipe->setIngredients($ingredients, $amounts);
 
         return new RecipeResource($recipe);
+    }
+
+    public function test(RecipeRequest $request)
+    {
+        $recipe = new Recipe;
+        $recipe->recipe_name = $request->get("recipe_name");
+        $recipe->difficulty = $request->get("difficulty");
+        $recipe->time = $request->get("time");
+        $recipe->category = $request->get("category");
+        $recipe->method = $request->get("method");
+        
+        $recipe->save();
+
+        $ingredients = $request->get("ingredients");
+        $amounts = $request->get("amounts");
+
+        for ($i = 0; $i < count($ingredients); $i += 1){
+
+            $ingredient_id = Ingredient::firstOrCreate(['ingredient_name' => $ingredients[$i]])->id;
+
+            $recipe->ingredients()->attach($ingredient_id, ['amount' => $amounts[$i]]);
+
+        }
+        return new RecipeResource($recipe);        
+        
     }
 
     /**

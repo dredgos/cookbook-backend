@@ -23,7 +23,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(["prefix" => "recipes"], function() {
     Route::get("", [RecipeController::class, "index"]);
-    Route::post("", [RecipeController::class, "store"]);
+    Route::post("", [RecipeController::class, "test"]);
 
     Route::group(["prefix" => "{recipe}"], function() {
         Route::get("", [RecipeController::class, "show"]);

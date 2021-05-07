@@ -29,6 +29,10 @@ class RecipeRequest extends FormRequest
             "time" => ['required', 'integer'],
             "category" => ['required'],
             "method" => ['required', 'string'],
+            "ingredients" => ['required', 'array'],
+            "ingredients.*" => ['string'],
+            "amounts" => ['required', 'array'],
+            "amounts.*" => ['string']
         ];
     }
 }

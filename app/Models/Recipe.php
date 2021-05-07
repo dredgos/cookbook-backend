@@ -30,4 +30,11 @@ class Recipe extends Model
         
     }
 
+    public function setIngredients(array $strings, $amounts)
+    {
+        $ingredients = Ingredient::fromStrings($strings);
+        $this->ingredients()->sync($ingredients->pluck('id'), ['amount' => $amounts]);  
+        return $this;
+    }
+
 }
