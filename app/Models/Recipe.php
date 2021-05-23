@@ -9,7 +9,7 @@ class Recipe extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['img_url', 'recipe_name', 'difficulty', 'category', 'method'];
+    protected $fillable = ['img_url', 'recipe_name', 'difficulty', 'time', 'category', 'method'];
 
     public function ingredients() 
     {
@@ -28,6 +28,13 @@ class Recipe extends Model
         
         return collect((array_combine($ingredientsList, $quantitiesList)));     
         
+    }
+
+    public function setIngredients(array $strings, $amounts)
+    {
+        $ingredients = Ingredient::fromStrings($strings);
+        $this->ingredients()->sync($ingredients->pluck('id'), ['amount' => $amounts]);  
+        return $this;
     }
 
 }

@@ -21,9 +21,12 @@ class RecipeResource extends JsonResource
         return [
             "recipe_id" => $this->id,
             "recipe_name" => $this->recipe_name,
+            "difficulty" => $this->difficulty,
+            "time" => $this->time,
+            "category" => $this->category,
             "ingredients" => $this->ingredientList($name, $quanitity),
             "method" => $this->method,
             "updated_at" => $this->lastUpdated(),
-    ];
+        ];
     }
 }
