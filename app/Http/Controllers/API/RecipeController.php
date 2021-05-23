@@ -29,20 +29,9 @@ class RecipeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+
     public function store(RecipeRequest $request)
-    {
-        $data = $request->all();
-        $recipe = Recipe::create($data);
-
-        $ingredients = $request->get('ingredients');
-        $amounts = $request->get('amounts');
-
-        $recipe->setIngredients($ingredients, $amounts);
-
-        return new RecipeResource($recipe);
-    }
-
-    public function test(RecipeRequest $request)
     {
         $recipe = new Recipe;
         $recipe->recipe_name = $request->get("recipe_name");
@@ -85,9 +74,11 @@ class RecipeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Recipe $recipe)
     {
-        //
+        $data = $request->all();
+        $recipe->fill($data)->save();
+        return new RecipeResource($recipe);
     }
 
     /**
@@ -96,8 +87,9 @@ class RecipeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Recipe $recipe)
     {
-        //
+        $recipe->delete();
+        return response(null, 204);
     }
 }
