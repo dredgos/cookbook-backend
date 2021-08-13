@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\RecipeController;
+use App\Http\Controllers\API\IngredientController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,8 +23,17 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(["prefix" => "recipes"], function() {
     Route::get("", [RecipeController::class, "index"]);
+    Route::post("", [RecipeController::class, "store"]);
+
+    Route::group(["prefix" => "{recipe}"], function() {
+        Route::get("", [RecipeController::class, "show"]);
+        Route::put("", [RecipeController::class, "update"]);
+        Route::delete("", [RecipeController::class, "destroy"]);
+    });
+
 });
 
-// Route::group(["prefix" => "ingredients"], function() {
-//     Route::get("", [IngredientController::class, "index"]);
-// });
+Route::group(["prefix" => "ingredients"], function() {
+    Route::get("", [IngredientController::class, "index"]);
+    Route::post("", [IngredientController::class, "store"]);
+});

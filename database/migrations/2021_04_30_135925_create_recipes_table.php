@@ -18,7 +18,8 @@ class CreateRecipesTable extends Migration
             $table->string('img_url')->nullable();
             $table->string('recipe_name')->nullable();
             $table->enum('difficulty', ['Easy', 'Medium', 'Hard'])->nullable();
-            $table->enum('category', ['Beef', 'Chicken', 'Lamb', 'Pork', 'Veggie'])->nullable();
+            $table->integer('time')->nullable();
+            $table->enum('category', ['Beef', 'Chicken', 'Fish', 'Lamb', 'Pork', 'Veggie'])->nullable();
             $table->string('method')->nullable();
             $table->timestamps();
         });
